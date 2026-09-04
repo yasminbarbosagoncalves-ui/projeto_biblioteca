@@ -15,34 +15,37 @@ def index():
     return """
     <h1>Sistema Biblioteca Escolar</h1>
     <p>Projeto iniciado com Python, Flask e MySQL.</p>
+
     <a href="/alunos">Ver alunos cadastrados</a>
-    </br>
-    <a href="/professores">Ver professor cadastrados</a>
-    </br>
-    <a href="/biblotecarios">Ver bibliotecario cadastrados</a>
+    <br><br>
+
+    <a href="/professores">Ver professores cadastrados</a>
+    <br><br>
+
+    <a href="/bibliotecarios">Ver bibliotecários cadastrados</a>
+    <br><br>
+
+    <a href="/livros">Ver livros cadastrados</a>
     """
 
 
 @app.route("/alunos")
-def listar_aluno():
+def listar_alunos():
     try:
         conexao = conectar()
         cursor = conexao.cursor(dictionary=True)
 
-
         cursor.execute("SELECT * FROM aluno")
         alunos = cursor.fetchall()
-
 
         cursor.close()
         conexao.close()
 
-
         html = """
         <h1>Alunos Cadastrados</h1>
+
         <a href="/">Voltar</a>
         <br><br>
-
 
         <table border="1" cellpadding="8">
             <tr>
@@ -53,7 +56,6 @@ def listar_aluno():
                 <th>Telefone</th>
             </tr>
         """
-
 
         for aluno in alunos:
             html += f"""
@@ -66,104 +68,84 @@ def listar_aluno():
             </tr>
             """
 
-
         html += "</table>"
 
-
         return html
-
 
     except Exception as erro:
         return f"Erro ao listar alunos: {erro}"
 
 
-
-
-
 @app.route("/professores")
-def listar_professor():
+def listar_professores():
     try:
         conexao = conectar()
         cursor = conexao.cursor(dictionary=True)
 
-
         cursor.execute("SELECT * FROM professor")
         professores = cursor.fetchall()
-
 
         cursor.close()
         conexao.close()
 
-
         html = """
-        <h1>professor Cadastrados</h1>
+        <h1>Professores Cadastrados</h1>
+
         <a href="/">Voltar</a>
         <br><br>
-
 
         <table border="1" cellpadding="8">
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
-                <th>email</th>
-                
                 <th>Telefone</th>
+                <th>Email</th>
             </tr>
         """
-
 
         for professor in professores:
             html += f"""
             <tr>
                 <td>{professor['id_professor']}</td>
                 <td>{professor['nome']}</td>
-                <td>{professor['email']}</td>
-        
                 <td>{professor['telefone']}</td>
+                <td>{professor['email']}</td>
             </tr>
             """
 
-
         html += "</table>"
-
 
         return html
 
-
     except Exception as erro:
-        return f"Erro ao listar professor: {erro}"
-    
+        return f"Erro ao listar professores: {erro}"
 
-    @app.route("/bibliotecarios")
-def listar_bibliotecario():
+
+@app.route("/bibliotecarios")
+def listar_bibliotecarios():
     try:
         conexao = conectar()
         cursor = conexao.cursor(dictionary=True)
 
-
         cursor.execute("SELECT * FROM bibliotecario")
         bibliotecarios = cursor.fetchall()
-
 
         cursor.close()
         conexao.close()
 
-
         html = """
-        <h1>bibliotecarios Cadastrados</h1>
+        <h1>Bibliotecários Cadastrados</h1>
+
         <a href="/">Voltar</a>
         <br><br>
-
 
         <table border="1" cellpadding="8">
             <tr>
                 <th>ID</th>
                 <th>Nome</th>
-                <th>email</th>
-            
+                <th>Email</th>
             </tr>
         """
-
 
         for bibliotecario in bibliotecarios:
             html += f"""
@@ -171,19 +153,63 @@ def listar_bibliotecario():
                 <td>{bibliotecario['id_bibliotecario']}</td>
                 <td>{bibliotecario['nome']}</td>
                 <td>{bibliotecario['email']}</td>
-               
             </tr>
             """
 
-
         html += "</table>"
-
 
         return html
 
+    except Exception as erro:
+        return f"Erro ao listar bibliotecários: {erro}"
+
+
+@app.route("/livros")
+def listar_livros():
+    try:
+        conexao = conectar()
+        cursor = conexao.cursor(dictionary=True)
+
+        cursor.execute("SELECT * FROM livro")
+        livros = cursor.fetchall()
+
+        cursor.close()
+        conexao.close()
+
+        html = """
+        <h1>Livros Cadastrados</h1>
+
+        <a href="/">Voltar</a>
+        <br><br>
+
+        <table border="1" cellpadding="8">
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Categoria</th>
+                <th>Status</th>
+            </tr>
+        """
+
+        for livro in livros:
+            html += f"""
+            <tr>
+                <td>{livro['id_livro']}</td>
+                <td>{livro['titulo']}</td>
+                <td>{livro['autor']}</td>
+                <td>{livro['categoria']}</td>
+                <td>{livro['status']}</td>
+            </tr>
+            """
+
+        html += "</table>"
+
+        return html
 
     except Exception as erro:
-        return f"Erro ao listar bibliotecario: {erro}"
+        return f"Erro ao listar livros: {erro}"
+
 
 if __name__ == "__main__":
     app.run(debug=True)
