@@ -23,13 +23,20 @@
             <th>Previsão Devolução</th>
             <th>Data Devolução</th>
             <th>Status</th>
+            <th>Ações</th>
         </tr>
     </thead>
 
 
     <tbody>
+
+
         {% for emprestimo in emprestimos %}
+
+
         <tr>
+
+
             <td>{{ emprestimo.id_emprestimo }}</td>
             <td>{{ emprestimo.aluno }}</td>
             <td>{{ emprestimo.livro }}</td>
@@ -38,12 +45,39 @@
             <td>{{ emprestimo.data_prevista_devolucao }}</td>
             <td>{{ emprestimo.data_devolucao }}</td>
             <td>{{ emprestimo.status }}</td>
+
+
+            <td>
+
+
+                {% if emprestimo.status == 'Emprestado' %}
+
+
+                <a href="/emprestimos/devolver/{{ emprestimo.id_emprestimo }}">
+                    Devolver
+                </a>
+
+
+                {% else %}
+
+
+                Devolvido
+
+
+                {% endif %}
+
+
+            </td>
+
+
         </tr>
+
+
         {% endfor %}
+
+
     </tbody>
 </table>
 
 
-{% endblock %}
-
-
+ {% endblock %}
