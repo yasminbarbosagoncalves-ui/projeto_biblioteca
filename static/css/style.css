@@ -128,3 +128,36 @@ a {
     color: #856404;
     border: 1px solid #ffeeba;
 }
+
+.painel {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+
+.card {
+    flex: 1;
+    background-color: #ecf0f1;
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+}
+
+
+.card h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+
+.card p {
+    font-size: 28px;
+    font-weight: bold;
+    color: #34495e;
+}
+
+.atraso {
+    color: #c0392b;
+    font-weight: bold;
+}
